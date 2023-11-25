@@ -1,0 +1,57 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http:/materialdesignxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:FinanceApp.View"
+      xmlns:materialDesign1="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="FinanceApp.View.ExpensePage"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ExpensePage">
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Background="Gray">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="ExpensePage" HorizontalAlignment="Center"/>
+
+            <DataGrid Margin="5" Grid.Row="1" ItemsSource="{Binding Expenses}" AutoGenerateColumns="False"  
+          SelectedItem="{Binding SelectedExpense, Mode=TwoWay}" SelectionUnit="FullRow">
+                    
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Amount" Width="auto" Binding="{Binding Amount}"/>
+                    <DataGridTextColumn Header="Currency" Width="auto" Binding="{Binding Currency}"/>
+                    <DataGridTextColumn Header="Data" Width="auto" Binding="{Binding Data}"/>
+                    <DataGridTextColumn Header="Category" Width="auto" Binding="{Binding Category}"/>
+                    <materialDesign1:DataGridComboBoxColumn/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Column="1">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+
+                <TextBlock x:Name="Watermark" Text="Amount" Foreground="Gray" Visibility="Visible"/>
+                <TextBox x:Name="Amount" Width="200"  Margin="5" Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock x:Name="Watermark2" Text="Currence" Foreground="Gray" Visibility="Visible"/>
+                <ComboBox x:Name="CurrencyComboBox" Margin="5" ItemsSource="{Binding Currencies}" SelectedItem="{Binding SelectedCurrency, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock x:Name="Watermark3" Text="Date" Foreground="Gray" Visibility="Visible"/>
+                <DatePicker x:Name="DateDatePicker" Margin="5" SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock x:Name="Watermark4" Text="Category" Foreground="Gray" Visibility="Visible"/>
+                <ComboBox x:Name="CategoryComboBox" Margin="5" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Content="Save" Margin="10" Command="{Binding SaveCommand}"/>
+                <Button Content="Add" Margin="10"/>
+                <Button Content="Delete" Margin="10" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedExpense}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
