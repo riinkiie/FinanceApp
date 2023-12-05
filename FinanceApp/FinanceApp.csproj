@@ -139,7 +139,6 @@
     <Compile Include="Model\MonthlyCalculation.cs" />
     <Compile Include="Model\RelayCommand.cs" />
     <Compile Include="Model\Transactions.cs" />
-    <Compile Include="Model\User.cs" />
     <Compile Include="ViewModel\AllTransactionsPageViewModel.cs" />
     <Compile Include="ViewModel\BalancePageViewModel.cs" />
     <Compile Include="ViewModel\DepositCalculatorViewModel.cs" />

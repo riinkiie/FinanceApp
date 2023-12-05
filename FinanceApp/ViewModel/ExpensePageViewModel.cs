@@ -159,7 +159,7 @@ namespace FinanceApp.ViewModel
             // Удаляем все доходы из базы данных
             dbContext.Database.ExecuteSqlCommand("DBCC CHECKIDENT('[Expenses]', RESEED, 0)");
 
-            // Очищаем таблицу доходов
+            // Очищаем таблицу расходов
             dbContext.Expense.RemoveRange(dbContext.Expense);
             dbContext.SaveChanges();
         }

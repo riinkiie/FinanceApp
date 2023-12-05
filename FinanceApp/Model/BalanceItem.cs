@@ -12,7 +12,7 @@ namespace FinanceApp.Model
         public decimal TotalIncome { get; set; }
         public decimal TotalExpense { get; set; }
     
-        public decimal Balance => TotalIncome - TotalExpense; // Добавлено свойство Balance
+        public decimal Balance => TotalIncome - TotalExpense; 
     }
 }
 

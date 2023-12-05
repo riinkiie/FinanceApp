@@ -13,12 +13,12 @@ namespace FinanceApp.ViewModel
         private IncomePageViewModel incomePageViewModel;
         private ExpensePageViewModel expensePageViewModel;
         private DepositCalculatorViewModel depositCalculatorViewModel;
-        private BalancePageViewModel balancePageViewModel; // Добавлено для баланса
+        private BalancePageViewModel balancePageViewModel; 
 
         private Page incomePage;
         private Page expensePage;
         private Page depositCalculatorPage;
-        private Page balancePage; // Добавлено для баланса
+        private Page balancePage; 
 
         private Page currentPage;
 
@@ -43,7 +43,6 @@ namespace FinanceApp.ViewModel
             CurrentPage = depositCalculatorPage;
         }
 
-        // Новый метод для открытия страницы баланса
         public void OpenBalancePage()
         {
             CurrentPage = balancePage;
@@ -125,13 +124,9 @@ namespace FinanceApp.ViewModel
         }
         public void OpenAllTransactionsPage()
         {
-            // Создаем новый экземпляр AllTransactionsViewModel
+            
             AllTransactionsViewModel allTransactionsViewModel = new AllTransactionsViewModel();
-
-            // Создаем новую страницу AllTransactionsPage и передаем ей DataContext
             Page allTransactionsPage = new AllTransactionsPage() { DataContext = allTransactionsViewModel };
-
-            // Устанавливаем текущую страницу
             CurrentPage = allTransactionsPage;
         }
 

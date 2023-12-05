@@ -19,7 +19,7 @@ namespace FinanceApp.Model
 
         public string Category { get; set; }
 
-        // Тип транзакции (доход или расход)
+    
         public string TransactionType { get; set; }
     }
 }
