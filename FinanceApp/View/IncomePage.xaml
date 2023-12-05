@@ -49,8 +49,8 @@
                 <ComboBox x:Name="CategoryComboBox" Margin="5" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Button Content="Save" Margin="10" Command="{Binding SaveCommand}"/>
-                <Button Content="Add" Margin="10"/>
                 <Button Content="Delete" Margin="10" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedIncome}"/>
+                <Button Content="Delete All Incomes" Margin="10" Command="{Binding DeleteAllIncomesCommand}"/>
             </StackPanel>
         </Grid>
     </Grid>

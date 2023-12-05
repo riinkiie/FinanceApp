@@ -47,6 +47,14 @@ namespace FinanceApp.Model
             get { return currency; }
             set { currency = value; OnPropertyChanged(); }
         }
+
+        private int balanceId;
+        public int BalanceId
+        {
+            get { return balanceId; }
+            set { balanceId = value; OnPropertyChanged("BalanceId"); }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")
@@ -55,5 +63,11 @@ namespace FinanceApp.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
+        public static event EventHandler<Expense> ExpenseAdded;
+
+        public static void OnExpenseAdded(Expense expense)
+        {
+            ExpenseAdded?.Invoke(null, expense);
+        }
     }
 }

@@ -84,6 +84,8 @@ namespace FinanceApp.ViewModel
 
         public RelayCommand SaveCommand { get; }
         public RelayCommand DeleteCommand { get; }
+        public RelayCommand DeleteAllIncomesCommand { get; }
+
 
         public IncomePageViewModel(MainWindowViewModel mainWindowViewModel)
         {
@@ -91,13 +93,14 @@ namespace FinanceApp.ViewModel
             this.mainWindowViewModel = mainWindowViewModel;
 
             Incomes = new ObservableCollection<Income>();
-            Currencies = new ObservableCollection<string> { "USD", "EUR", "GBP" };
+            Currencies = new ObservableCollection<string> { "USD", "EUR", "BLR" };
             Categories = new ObservableCollection<string> { "Salary", "Investment", "Gift" };
 
             LoadIncomes();
 
             SaveCommand = new RelayCommand(SaveIncome, CanSaveIncome);
             DeleteCommand = new RelayCommand(DeleteIncome, CanDeleteIncome);
+            DeleteAllIncomesCommand = new RelayCommand(DeleteAllIncomes);
         }
 
         private void LoadIncomes()
@@ -127,8 +130,28 @@ namespace FinanceApp.ViewModel
             Incomes.Add(newIncome);
             dbContext.Income.Add(newIncome);
             dbContext.SaveChanges();
+            Income.OnIncomeAdded(newIncome);
+            // Очистка полей ввода после сохранения
+            Amount = string.Empty;
+            SelectedCurrency = null;
+            SelectedDate = DateTime.Today;
+            SelectedCategory = null;
+
+
         }
 
+        private void DeleteAllIncomes(object parameter)
+        {
+            // Удаляем все доходы из ObservableCollection
+            Incomes.Clear();
+
+            // Удаляем все доходы из базы данных
+            dbContext.Database.ExecuteSqlCommand("DBCC CHECKIDENT('[Incomes]', RESEED, 0)");
+
+            // Очищаем таблицу доходов
+            dbContext.Income.RemoveRange(dbContext.Income);
+            dbContext.SaveChanges();
+        }
         private bool CanDeleteIncome(object parameter)
         {
             return SelectedIncome != null;
@@ -150,5 +173,7 @@ namespace FinanceApp.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
+
+
     }
 }

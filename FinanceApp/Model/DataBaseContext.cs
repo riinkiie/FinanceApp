@@ -14,5 +14,7 @@ namespace FinanceApp.Model
         public DbSet <Income> Income { get; set; }
 
         public DbSet<Expense> Expense { get; set; }
+
+       
     }
 }

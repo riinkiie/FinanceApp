@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using FinanceApp.Model;
+﻿using FinanceApp.Model;
 using FinanceApp.View;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Controls;
-
 
 namespace FinanceApp.ViewModel
 {
@@ -18,11 +12,16 @@ namespace FinanceApp.ViewModel
 
         private IncomePageViewModel incomePageViewModel;
         private ExpensePageViewModel expensePageViewModel;
+        private DepositCalculatorViewModel depositCalculatorViewModel;
+        private BalancePageViewModel balancePageViewModel; // Добавлено для баланса
 
         private Page incomePage;
         private Page expensePage;
+        private Page depositCalculatorPage;
+        private Page balancePage; // Добавлено для баланса
 
         private Page currentPage;
+
         public Page CurrentPage
         {
             get { return currentPage; }
@@ -38,6 +37,18 @@ namespace FinanceApp.ViewModel
         {
             CurrentPage = expensePage;
         }
+
+        public void OpenDepositCalculatorPage()
+        {
+            CurrentPage = depositCalculatorPage;
+        }
+
+        // Новый метод для открытия страницы баланса
+        public void OpenBalancePage()
+        {
+            CurrentPage = balancePage;
+        }
+
         public MainWindowViewModel()
         {
             dbContext = new DataBaseContext();
@@ -47,15 +58,16 @@ namespace FinanceApp.ViewModel
         private RelayCommand incomePageCommand;
         public RelayCommand IncomePageCommand
         {
-            get {
+            get
+            {
                 return incomePageCommand ??
                     (incomePageCommand = new RelayCommand(obj =>
-                        {
-                            IncomePage();
+                    {
+                        IncomePage();
+                    }));
+            }
+        }
 
-                        }));
-        }
-        }
         private RelayCommand expensePageCommand;
         public RelayCommand ExpensePageCommand
         {
@@ -65,23 +77,77 @@ namespace FinanceApp.ViewModel
                     (expensePageCommand = new RelayCommand(obj =>
                     {
                         ExpensePage();
-
                     }));
             }
         }
-        public void LoadPages()
+
+        private RelayCommand depositCalculatorPageCommand;
+        public RelayCommand DepositCalculatorPageCommand
         {
-            incomePageViewModel=new IncomePageViewModel(this);
-            incomePage = new IncomePage() { DataContext = incomePageViewModel };
-            expensePageViewModel = new ExpensePageViewModel(this);
-            expensePage = new ExpensePage() { DataContext = expensePageViewModel };
+            get
+            {
+                return depositCalculatorPageCommand ??
+                    (depositCalculatorPageCommand = new RelayCommand(obj =>
+                    {
+                        OpenDepositCalculatorPage();
+                    }));
+            }
         }
 
-        private MainWindowViewModel mainWindowViewModel;
-        public MainWindowViewModel(MainWindowViewModel mainWindowViewModel)
+        // Новая команда для открытия страницы баланса
+        private RelayCommand balancePageCommand;
+        public RelayCommand BalancePageCommand
         {
-            this.mainWindowViewModel = mainWindowViewModel;
+            get
+            {
+                return balancePageCommand ??
+                    (balancePageCommand = new RelayCommand(obj =>
+                    {
+                        OpenBalancePage();
+                    }));
+            }
         }
+
+        public void LoadPages()
+        {
+            incomePageViewModel = new IncomePageViewModel(this);
+            incomePage = new IncomePage() { DataContext = incomePageViewModel };
+
+            expensePageViewModel = new ExpensePageViewModel(this);
+            expensePage = new ExpensePage() { DataContext = expensePageViewModel };
+
+            depositCalculatorViewModel = new DepositCalculatorViewModel();
+            depositCalculatorPage = new DepositCalculatorPage() { DataContext = depositCalculatorViewModel };
+
+            // Инициализируем баланс
+            balancePageViewModel = new BalancePageViewModel();
+            balancePage = new BalancePage() { DataContext = balancePageViewModel };
+        }
+        public void OpenAllTransactionsPage()
+        {
+            // Создаем новый экземпляр AllTransactionsViewModel
+            AllTransactionsViewModel allTransactionsViewModel = new AllTransactionsViewModel();
+
+            // Создаем новую страницу AllTransactionsPage и передаем ей DataContext
+            Page allTransactionsPage = new AllTransactionsPage() { DataContext = allTransactionsViewModel };
+
+            // Устанавливаем текущую страницу
+            CurrentPage = allTransactionsPage;
+        }
+
+        private RelayCommand allTransactionsPageCommand;
+        public RelayCommand AllTransactionsPageCommand
+        {
+            get
+            {
+                return allTransactionsPageCommand ??
+                    (allTransactionsPageCommand = new RelayCommand(obj =>
+                    {
+                        OpenAllTransactionsPage();
+                    }));
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")

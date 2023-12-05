@@ -86,6 +86,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\AllTransactionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\BalancePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DepositCalculatorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ExpensePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -110,15 +122,39 @@
     <Compile Include="Migrations\202311241537295_Enable-Migration.designer.cs">
       <DependentUpon>202311241537295_Enable-Migration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202312021643030_UpdateModel.cs" />
+    <Compile Include="Migrations\202312021643030_UpdateModel.designer.cs">
+      <DependentUpon>202312021643030_UpdateModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312022237157_YourMigrationName.cs" />
+    <Compile Include="Migrations\202312022237157_YourMigrationName.designer.cs">
+      <DependentUpon>202312022237157_YourMigrationName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\BalanceItem.cs" />
     <Compile Include="Model\DataBaseContext.cs" />
+    <Compile Include="Model\DepositCalculatorModel.cs" />
     <Compile Include="Model\Expense.cs" />
     <Compile Include="Model\Income.cs" />
+    <Compile Include="Model\MonthlyCalculation.cs" />
     <Compile Include="Model\RelayCommand.cs" />
+    <Compile Include="Model\Transactions.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="ViewModel\AllTransactionsPageViewModel.cs" />
+    <Compile Include="ViewModel\BalancePageViewModel.cs" />
+    <Compile Include="ViewModel\DepositCalculatorViewModel.cs" />
     <Compile Include="ViewModel\ExpensePageViewModel.cs" />
     <Compile Include="ViewModel\IncomePageViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="View\AllTransactionsPage.xaml.cs">
+      <DependentUpon>AllTransactionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\BalancePage.xaml.cs">
+      <DependentUpon>BalancePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DepositCalculatorPage.xaml.cs">
+      <DependentUpon>DepositCalculatorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ExpensePage.xaml.cs">
       <DependentUpon>ExpensePage.xaml</DependentUpon>
     </Compile>
@@ -149,6 +185,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202311241537295_Enable-Migration.resx">
       <DependentUpon>202311241537295_Enable-Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312021643030_UpdateModel.resx">
+      <DependentUpon>202312021643030_UpdateModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312022237157_YourMigrationName.resx">
+      <DependentUpon>202312022237157_YourMigrationName.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

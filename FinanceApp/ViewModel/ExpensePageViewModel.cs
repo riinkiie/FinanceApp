@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace FinanceApp.ViewModel
@@ -43,7 +44,16 @@ namespace FinanceApp.ViewModel
                 OnPropertyChanged(nameof(Amount));
             }
         }
-
+        private string selectedBalanceCurrency;
+        public string SelectedBalanceCurrency
+        {
+            get { return selectedBalanceCurrency; }
+            set
+            {
+                selectedBalanceCurrency = value;
+                OnPropertyChanged(nameof(SelectedBalanceCurrency));
+            }
+        }
         public DateTime SelectedDate
         {
             get { return selectedDate; }
@@ -86,6 +96,7 @@ namespace FinanceApp.ViewModel
 
         public RelayCommand SaveCommand { get; }
         public RelayCommand DeleteCommand { get; }
+        public RelayCommand DeleteAllExpensesCommand { get; }
 
         public ExpensePageViewModel(MainWindowViewModel mainWindowViewModel)
         {
@@ -93,13 +104,14 @@ namespace FinanceApp.ViewModel
             this.mainWindowViewModel = mainWindowViewModel;
 
             Expenses = new ObservableCollection<Expense>();
-            Currencies = new ObservableCollection<string> { "USD", "EUR", "GBP" };
+            Currencies = new ObservableCollection<string> { "USD", "EUR", "BLR" };
             Categories = new ObservableCollection<string> { "Food", "Utilities", "Transportation" };
 
             LoadExpenses();
 
             SaveCommand = new RelayCommand(SaveExpense, CanSaveExpense);
             DeleteCommand = new RelayCommand(DeleteExpense, CanDeleteExpense);
+            DeleteAllExpensesCommand = new RelayCommand(DeleteAllExpenses);
         }
 
         private void LoadExpenses()
@@ -123,11 +135,32 @@ namespace FinanceApp.ViewModel
                 Amount = decimal.Parse(Amount),
                 Currency = SelectedCurrency,
                 Data = DateTime.Now,
-                Category = SelectedCategory
+                Category = SelectedCategory,
+                
             };
 
             Expenses.Add(newExpense);
             dbContext.Expense.Add(newExpense);
+            dbContext.SaveChanges();
+            Expense.OnExpenseAdded(newExpense);
+
+            // Очистка полей ввода после сохранения
+            Amount = string.Empty;
+            SelectedCurrency = null;
+            SelectedDate = DateTime.Today;
+            SelectedCategory = null;
+
+        }
+        private void DeleteAllExpenses(object parameter)
+        {
+            // Удаляем все доходы из ObservableCollection
+            Expenses.Clear();
+
+            // Удаляем все доходы из базы данных
+            dbContext.Database.ExecuteSqlCommand("DBCC CHECKIDENT('[Expenses]', RESEED, 0)");
+
+            // Очищаем таблицу доходов
+            dbContext.Expense.RemoveRange(dbContext.Expense);
             dbContext.SaveChanges();
         }
 

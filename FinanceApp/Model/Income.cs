@@ -40,6 +40,7 @@ namespace FinanceApp.Model
             get { return currency; }
             set { currency = value; OnPropertyChanged(); }
         }
+ 
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -47,6 +48,13 @@ namespace FinanceApp.Model
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public static event EventHandler<Income> IncomeAdded;
+
+        public static void OnIncomeAdded(Income income)
+        {
+            IncomeAdded?.Invoke(null, income);
         }
     }
 }
