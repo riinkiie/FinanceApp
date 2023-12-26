@@ -25,6 +25,7 @@ namespace FinanceApp.View
             InitializeComponent();
            
         }
+
      
     }
 }

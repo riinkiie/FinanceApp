@@ -7,13 +7,13 @@ namespace FinanceApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class YourMigrationName : IMigrationMetadata
+    public sealed partial class Initial1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(YourMigrationName));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial1));
         
         string IMigrationMetadata.Id
         {
-            get { return "202312022237157_YourMigrationName"; }
+            get { return "202312081659124_Initial1"; }
         }
         
         string IMigrationMetadata.Source

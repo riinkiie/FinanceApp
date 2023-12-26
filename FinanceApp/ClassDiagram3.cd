@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FinanceApp.ViewModel.BalancePageViewModel" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAIQAAAAAAgAAAAAAAAAAAABAAEAA=</HashCode>
+      <FileName>ViewModel\BalancePageViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FinanceApp.ViewModel.DepositCalculatorViewModel" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAQAIAAAACBAgAAAAAAIAARAAAAAAAA=</HashCode>
+      <FileName>ViewModel\DepositCalculatorViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FinanceApp.ViewModel.ExpensePageViewModel" BaseTypeListCollapsed="true">
+    <Position X="1.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACADAAAIAACAnCEAIZQAAACAgBAAsAEAAQAgAEAEAgQ=</HashCode>
+      <FileName>ViewModel\ExpensePageViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FinanceApp.ViewModel.IncomePageViewModel" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACADAEAAAAAADQEAIQQAAACAoAAg0gCAQIAgAEAEAgQ=</HashCode>
+      <FileName>ViewModel\IncomePageViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FinanceApp.ViewModel.MainWindowViewModel" BaseTypeListCollapsed="true">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAEDAAAIkAERECAYwAAAAAEoEIAAIASQgAAAwAYIA4=</HashCode>
+      <FileName>ViewModel\MainWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinanceApp.ViewModel.ReportPageViewModel" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAQAAIAEAISAAAAAggAAAAAAgKAAAAEAAAAA=</HashCode>
+      <FileName>ViewModel\ReportPageViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FinanceApp.ViewModel.AllTransactionsPageViewModel">
+    <Position X="8.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YAAAACAAAQAAIAEAISAAAgAggAAgAAAgAAAAAEAAAAA=</HashCode>
+      <FileName>ViewModel\AllTransactionsPageViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

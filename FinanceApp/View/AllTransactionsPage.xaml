@@ -3,34 +3,70 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:vm="clr-namespace:FinanceApp.ViewModel"
       mc:Ignorable="d"
-      Title="AllTransactionsPage" Height="425">
+      d:DesignHeight="450"
+      Title="All Transactions" Background="White">
+
     <Grid Background="White">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="358*"/>
+            <ColumnDefinition Width="auto"/>
+
+
+            <!-- Added a new column definition -->
         </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,300,0">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Image/фон1.jpg"/>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10">
-            <Label Content="Start Date:"/>
-            <DatePicker x:Name="startDatePicker" SelectedDate="{Binding FilterStartDate, Mode=TwoWay}" Margin="5"/>
-            <Label Content="End Date:" Margin="5"/>
-            <DatePicker x:Name="endDatePicker" SelectedDate="{Binding FilterEndDate, Mode=TwoWay}" Margin="5"/>
-            <Label Content="Transaction Type:" Margin="5"/>
-            <ComboBox x:Name="transactionTypeComboBox"
-                      ItemsSource="{Binding TransactionTypes}"
-                      SelectedItem="{Binding SelectedTransactionType, Mode=TwoWay}" Margin="5"/>
-        </StackPanel>
+            <!-- Транзакции -->
+            <DataGrid Margin="5" Grid.Row="1" ItemsSource="{Binding TransactionItems}" AutoGenerateColumns="False"
+                      SelectedItem="{Binding SelectedTransaction, Mode=TwoWay}" SelectionUnit="FullRow">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="Auto" Binding="{Binding Id}" />
+                    <DataGridTextColumn Header="Amount" Width="Auto" Binding="{Binding Amount}" />
+                    <DataGridTextColumn Header="Currency" Width="Auto" Binding="{Binding Currency}" />
+                    <DataGridTextColumn Header="Date" Width="Auto" Binding="{Binding Date}" />
+                    <DataGridTextColumn Header="Category" Width="Auto" Binding="{Binding Category}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Column="2" HorizontalAlignment="Center">
+            <StackPanel Orientation="Vertical"  Width="300" >
+                <StackPanel.Background>
+                    <ImageBrush ImageSource="/Image/фон111.jpg"/>
+                </StackPanel.Background>
+                <!-- Выбор временного диапазона справа от таблицы -->
+                <ComboBox Height="40" x:Name="TimeRangeComboBox"
+                          SelectedIndex="0"
+                          SelectedValuePath="Tag"
+                          SelectedValue="{Binding SelectedTimeRange, Mode=TwoWay}" >
+                    <ComboBoxItem Content="Last month" Tag="-1" />
+                    <ComboBoxItem Content="Last 3 months" Tag="-3" />
+                    <ComboBoxItem Content="Last 7 months" Tag="-7" />
+                    <ComboBoxItem Content="Last year" Tag="-12" />
+                </ComboBox>
+                <ComboBox Height="40" x:Name="TransactionTypeComboBox"
+          SelectedIndex="0"
+          SelectedValuePath="Tag"
+          SelectedValue="{Binding SelectedTransactionType, Mode=TwoWay}" >
+                    <ComboBoxItem Content="All" Tag="All" />
+                    <ComboBoxItem Content="Incomes" Tag="Income" />
+                    <ComboBoxItem Content="Expenses" Tag="Expense" />
+                </ComboBox>
 
-        <DataGrid x:Name="transactionsDataGrid" Grid.Column="0" ItemsSource="{Binding Transactions}" AutoGenerateColumns="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
-                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="100"/>
-                <DataGridTextColumn Header="Currency" Binding="{Binding Currency}" Width="100"/>
-                <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="150"/>
-                <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="150"/>
-                <DataGridTextColumn Header="Type" Binding="{Binding TransactionType}" Width="100"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                <Button Height="40"
+                        Content="Apply"
+                        Command="{Binding ApplyDateRangeCommand}" FontFamily="Cooper Black"/>
+                <!-- Выбор временного диапазона справа от таблицы -->
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

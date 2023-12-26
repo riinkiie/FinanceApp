@@ -12,7 +12,7 @@ namespace FinanceApp.ViewModel
     {
         private DepositCalculatorModel depositCalculatorModel;
         private MonthlyCalculation selectedMonthlyCalculation;
-  
+
         public DepositCalculatorModel DepositModel
         {
             get { return depositCalculatorModel; }

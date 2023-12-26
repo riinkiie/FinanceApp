@@ -8,32 +8,26 @@ using System.Threading.Tasks;
 
 namespace FinanceApp.Model
 {
-    public class Expense : INotifyPropertyChanged
+    public class Expense :  INotifyPropertyChanged
     {
-
         private int id;
         public int Id
         {
             get { return id; }
             set { id = value; OnPropertyChanged("Id"); }
-
         }
         private decimal amount;
         public decimal Amount
         {
             get { return amount; }
             set { amount = value; OnPropertyChanged("Amount"); }
-
         }
-
-        private DateTime data;
-        public DateTime Data
+        private DateTime date;
+        public DateTime Date
         {
-            get { return data; }
-            set { data = value; OnPropertyChanged("Data"); }
+            get { return date; }
+            set { date = value; OnPropertyChanged("Data"); }
         }
-
-
         private string category;
         public string Category
         {
@@ -47,22 +41,20 @@ namespace FinanceApp.Model
             get { return currency; }
             set { currency = value; OnPropertyChanged(); }
         }
-
-        private int balanceId;
-        public int BalanceId
+        private int userId;
+        public int UserId
         {
-            get { return balanceId; }
-            set { balanceId = value; OnPropertyChanged("BalanceId"); }
+            get { return userId; }
+            set { userId = value; OnPropertyChanged("IdUser"); }
         }
+        public string TransactionType { get; } = "Expense";
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
-
         public static event EventHandler<Expense> ExpenseAdded;
 
         public static void OnExpenseAdded(Expense expense)

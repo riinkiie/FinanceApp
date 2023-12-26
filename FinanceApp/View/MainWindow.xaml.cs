@@ -24,6 +24,9 @@ namespace FinanceApp
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
+
         }
+
+        
     }
 }

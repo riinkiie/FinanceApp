@@ -24,7 +24,7 @@ namespace FinanceApp.View
         public AllTransactionsPage()
         {
             InitializeComponent();
-            DataContext = new AllTransactionsViewModel();
+           
         }
     }
 }

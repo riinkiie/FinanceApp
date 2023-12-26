@@ -7,7 +7,7 @@
       xmlns:local="clr-namespace:FinanceApp.View"
       xmlns:materialDesign1="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="FinanceApp.View.ExpensePage"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" 
       Title="ExpensePage">
 
     <Grid Background="White">
@@ -16,21 +16,27 @@
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Background="Gray">
+        <Grid Grid.Column="0">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Image/фон1.jpg"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="270*"/>
+                <ColumnDefinition Width="127*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="ExpensePage" HorizontalAlignment="Center"/>
 
-            <DataGrid Margin="5" Grid.Row="1" ItemsSource="{Binding Expenses}" AutoGenerateColumns="False"  
-          SelectedItem="{Binding SelectedExpense, Mode=TwoWay}" SelectionUnit="FullRow">
-                    
+            <DataGrid Margin="5,5,5,5" Grid.Row="1" ItemsSource="{Binding Expenses}" AutoGenerateColumns="False"  
+          SelectedItem="{Binding SelectedExpense, Mode=TwoWay}" SelectionUnit="FullRow" Grid.ColumnSpan="2">
+
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="Amount" Width="auto" Binding="{Binding Amount}"/>
                     <DataGridTextColumn Header="Currency" Width="auto" Binding="{Binding Currency}"/>
-                    <DataGridTextColumn Header="Data" Width="auto" Binding="{Binding Data}"/>
+                    <DataGridTextColumn Header="Data" Width="auto" Binding="{Binding Date}"/>
                     <DataGridTextColumn Header="Category" Width="auto" Binding="{Binding Category}"/>
                     <materialDesign1:DataGridComboBoxColumn/>
                 </DataGrid.Columns>
@@ -38,7 +44,14 @@
             </DataGrid>
         </Grid>
         <Grid Grid.Column="1">
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Image/фон1.jpg"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="29*"/>
+                <ColumnDefinition Width="41*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.ColumnSpan="2">
 
                 <TextBlock x:Name="Watermark" Text="Amount" Foreground="Gray" Visibility="Visible"/>
                 <TextBox x:Name="Amount" Width="200"  Margin="5" Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}"/>
@@ -48,9 +61,9 @@
                 <DatePicker x:Name="DateDatePicker" Margin="5" SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock x:Name="Watermark4" Text="Category" Foreground="Gray" Visibility="Visible"/>
                 <ComboBox x:Name="CategoryComboBox" Margin="5" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Content="Save" Margin="10" Command="{Binding SaveCommand}"/>
-                <Button Content="Delete" Margin="10" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedExpense}"/>
-                <Button Content="Delete All Expenses" Margin="10" Command="{Binding DeleteAllExpensesCommand}"/>
+                <Button Content="Save" Margin="10" Command="{Binding SaveCommand}" FontFamily="Cooper Black"/>
+                <Button Content="Delete" Margin="10" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedExpense}" FontFamily="Cooper Black"/>
+                <Button Content="Delete All Expenses" Margin="10" Command="{Binding DeleteAllExpensesCommand}" FontFamily="Cooper Black"/>
             </StackPanel>
         </Grid>
     </Grid>

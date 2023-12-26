@@ -2,7 +2,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace FinanceApp.ViewModel
@@ -19,9 +18,7 @@ namespace FinanceApp.ViewModel
         private string selectedCategory;
         private string selectedCurrency;
 
-
         public ObservableCollection<Expense> Expenses { get; set; }
-
         public ObservableCollection<string> Currencies { get; set; }
         public ObservableCollection<string> Categories { get; set; }
 
@@ -44,6 +41,7 @@ namespace FinanceApp.ViewModel
                 OnPropertyChanged(nameof(Amount));
             }
         }
+
         private string selectedBalanceCurrency;
         public string SelectedBalanceCurrency
         {
@@ -54,6 +52,7 @@ namespace FinanceApp.ViewModel
                 OnPropertyChanged(nameof(SelectedBalanceCurrency));
             }
         }
+
         public DateTime SelectedDate
         {
             get { return selectedDate; }
@@ -74,7 +73,6 @@ namespace FinanceApp.ViewModel
             }
         }
 
-   
         public string SelectedCurrency
         {
             get { return selectedCurrency; }
@@ -84,6 +82,7 @@ namespace FinanceApp.ViewModel
                 OnPropertyChanged(nameof(SelectedCurrency));
             }
         }
+
         public Expense SelectedExpense
         {
             get { return selectedExpense; }
@@ -112,6 +111,9 @@ namespace FinanceApp.ViewModel
             SaveCommand = new RelayCommand(SaveExpense, CanSaveExpense);
             DeleteCommand = new RelayCommand(DeleteExpense, CanDeleteExpense);
             DeleteAllExpensesCommand = new RelayCommand(DeleteAllExpenses);
+
+            // Инициализация в конструкторе
+            SelectedDate = DateTime.Today;
         }
 
         private void LoadExpenses()
@@ -131,12 +133,10 @@ namespace FinanceApp.ViewModel
         {
             Expense newExpense = new Expense
             {
-               
                 Amount = decimal.Parse(Amount),
                 Currency = SelectedCurrency,
-                Data = DateTime.Now,
+                Date = SelectedDate,
                 Category = SelectedCategory,
-                
             };
 
             Expenses.Add(newExpense);
@@ -149,14 +149,14 @@ namespace FinanceApp.ViewModel
             SelectedCurrency = null;
             SelectedDate = DateTime.Today;
             SelectedCategory = null;
-
         }
+
         private void DeleteAllExpenses(object parameter)
         {
-            // Удаляем все доходы из ObservableCollection
+            // Удаляем все расходы из ObservableCollection
             Expenses.Clear();
 
-            // Удаляем все доходы из базы данных
+            // Удаляем все расходы из базы данных
             dbContext.Database.ExecuteSqlCommand("DBCC CHECKIDENT('[Expenses]', RESEED, 0)");
 
             // Очищаем таблицу расходов

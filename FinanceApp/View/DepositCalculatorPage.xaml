@@ -1,47 +1,51 @@
-﻿
-        <Page x:Class="FinanceApp.View.DepositCalculatorPage"
+﻿<Page x:Class="FinanceApp.View.DepositCalculatorPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http:/materialdesignxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:FinanceApp.View"
-      xmlns:materialDesign1="http://materialdesigninxaml.net/winfx/xaml/themes" 
-      mc:Ignorable="d" 
+      xmlns:materialDesign1="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DepositCalculatorPage">
 
-            <Grid Background="White">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0" Margin="10">
-                    <TextBlock Text="Initial Amount" Foreground="Gray" Visibility="Visible" />
-                    <TextBox x:Name="Amount" Width="200" Margin="5" Text="{Binding DepositModel.InitialAmount, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+        <Grid Grid.Column="0">
+            <Grid.Background>
+                <ImageBrush ImageSource="\Image\фон1.jpg"/>
+            </Grid.Background>
 
-                    <TextBlock Text="Currency" Foreground="Gray" Visibility="Visible" />
-                    <ComboBox x:Name="CurrencyComboBox" Width="200" Margin="5" 
-                      SelectedValue="{Binding DepositModel.Currency, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" 
-                      SelectedValuePath="Content">
-                        <ComboBoxItem Content="USD" />
-                        <ComboBoxItem Content="EUR" />
-                    </ComboBox>
+            <StackPanel Orientation="Vertical" Margin="10">
+                <TextBlock Text="Initial Amount" Foreground="Gray" Visibility="Visible"/>
+                <TextBox x:Name="Amount" Width="300" Margin="5" Text="{Binding DepositModel.InitialAmount, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
 
-                    <TextBlock Text="Interest Rate" Foreground="Gray" Visibility="Visible" />
-                    <TextBox x:Name="InterestRate" Width="200" Margin="5" Text="{Binding DepositModel.InterestRate, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+                <TextBlock Text="Currency" Foreground="Gray" Visibility="Visible"/>
+                <ComboBox x:Name="CurrencyComboBox" Width="300" Margin="5"
+                          SelectedValue="{Binding DepositModel.Currency, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Content" HorizontalAlignment="Left">
+                    <ComboBoxItem Content="USD"/>
+                    <ComboBoxItem Content="EUR"/>
+                </ComboBox>
 
-                    <TextBlock Text="Duration (Years)" Foreground="Gray" Visibility="Visible" />
-                    <TextBox x:Name="Duration" Width="200" Margin="5" Text="{Binding DepositModel.DurationInYears, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+                <TextBlock Text="Interest Rate" Foreground="Gray" Visibility="Visible"/>
+                <TextBox x:Name="InterestRate" Width="300" Margin="5" Text="{Binding DepositModel.InterestRate, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
 
-                    <TextBlock Text="Start Date" Foreground="Gray" Visibility="Visible" />
-                    <DatePicker x:Name="StartDatePicker" Width="200" Margin="5" SelectedDate="{Binding DepositModel.StartDate, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+                <TextBlock Text="Duration (Years)" Foreground="Gray" Visibility="Visible"/>
+                <TextBox x:Name="Duration" Width="300" Margin="5" Text="{Binding DepositModel.DurationInYears, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
 
-                    <Button Content="Calculate" Margin="0,10" Command="{Binding CalculateCommand}" />
-                </StackPanel>
+                <TextBlock Text="Start Date" Foreground="Gray" Visibility="Visible"/>
+                <DatePicker x:Name="StartDatePicker" Width="300" Margin="5" SelectedDate="{Binding DepositModel.StartDate, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+                <Button Content="Calculate" Command="{Binding CalculateCommand}" Width="300" FontFamily="Cooper Black" HorizontalAlignment="Left" />
+            </StackPanel>
+        </Grid>
 
-                <DataGrid Grid.Column="1" Margin="5" Grid.Row="1" ItemsSource="{Binding MonthlyCalculations}" AutoGenerateColumns="False" SelectionUnit="FullRow">
+        <DataGrid Grid.Column="1" Margin="5" ItemsSource="{Binding MonthlyCalculations}" AutoGenerateColumns="False" SelectionUnit="FullRow">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Month" Width="auto" Binding="{Binding MonthDate, StringFormat={}{0:MMMM yyyy}}" />
                 <DataGridTextColumn Header="Monthly Interest" Width="auto">
@@ -62,5 +66,5 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-            </Grid>
-        </Page>
+    </Grid>
+</Page>

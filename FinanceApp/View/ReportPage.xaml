@@ -1,0 +1,46 @@
+﻿<Page x:Class="FinanceApp.View.ReportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:vm="clr-namespace:FinanceApp.ViewModel"
+      mc:Ignorable="d"
+      Title="Страница отчетов" Background="White">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Image/фон11.jpg"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" MinWidth="200" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Отчетные данные -->
+        <DataGrid ItemsSource="{Binding ReportItems}" AutoGenerateColumns="False" Margin="10" HorizontalAlignment="Stretch">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Currency" Binding="{Binding Currency}" Width="*" />
+                <DataGridTextColumn Header="Earned Amount" Binding="{Binding EarnedAmount}" Width="*" />
+                <DataGridTextColumn Header="Spent Amount" Binding="{Binding SpentAmount}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Выбор временного диапазона справа от таблицы -->
+        <StackPanel Grid.Column="1" Margin="10,10,10,0">
+            <ComboBox x:Name="TimeRangeComboBox"
+                      SelectedIndex="0"
+                      SelectedValuePath="Tag"
+                      SelectedValue="{Binding SelectedTimeRange, Mode=TwoWay}" Height="24">
+                <ComboBoxItem Content="Last month" Tag="-1" />
+                <ComboBoxItem Content="Last 3 months" Tag="-3" />
+                <ComboBoxItem Content="Last 7 months" Tag="-7" />
+                <ComboBoxItem Content="Last Year" Tag="-12" />
+            </ComboBox>
+
+            <!-- Кнопка "Apply" -->
+            <Button Margin="0,10,0,0"
+                    Content="Apply"
+                    Command="{Binding ApplyDateRangeCommand}" FontFamily="Cooper Black" />
+        </StackPanel>
+    </Grid>
+</Page>

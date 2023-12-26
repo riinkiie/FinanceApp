@@ -3,22 +3,29 @@ using FinanceApp.View;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
+using FinanceApp.ViewModel;
 
 namespace FinanceApp.ViewModel
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         private DataBaseContext dbContext;
+     
 
         private IncomePageViewModel incomePageViewModel;
         private ExpensePageViewModel expensePageViewModel;
         private DepositCalculatorViewModel depositCalculatorViewModel;
-        private BalancePageViewModel balancePageViewModel; 
+        private BalancePageViewModel balancePageViewModel;
+        private AllTransactionsPageViewModel allTransactionsPageViewModel;
+        private ReportPageViewModel reportPageViewModel;
+        private Page reportPage;
+       
 
         private Page incomePage;
         private Page expensePage;
         private Page depositCalculatorPage;
-        private Page balancePage; 
+        private Page balancePage;
+        private Page allTransactionsPage;
 
         private Page currentPage;
 
@@ -27,7 +34,14 @@ namespace FinanceApp.ViewModel
             get { return currentPage; }
             set { currentPage = value; OnPropertyChanged("CurrentPage"); }
         }
-
+        public void OpenReportPage()
+        {
+            CurrentPage = reportPage;
+        }
+        public void AllTransactionsPage()
+        {
+            CurrentPage = allTransactionsPage;
+        }
         public void IncomePage()
         {
             CurrentPage = incomePage;
@@ -52,6 +66,7 @@ namespace FinanceApp.ViewModel
         {
             dbContext = new DataBaseContext();
             LoadPages();
+            
         }
 
         private RelayCommand incomePageCommand;
@@ -79,6 +94,18 @@ namespace FinanceApp.ViewModel
                     }));
             }
         }
+        private RelayCommand reportPageCommand;
+public RelayCommand ReportPageCommand
+        {
+            get
+            {
+                return reportPageCommand ??
+                    (reportPageCommand = new RelayCommand(obj =>
+                    {
+                        OpenReportPage();
+                    }));
+            }
+        }
 
         private RelayCommand depositCalculatorPageCommand;
         public RelayCommand DepositCalculatorPageCommand
@@ -93,7 +120,7 @@ namespace FinanceApp.ViewModel
             }
         }
 
-        // Новая команда для открытия страницы баланса
+        
         private RelayCommand balancePageCommand;
         public RelayCommand BalancePageCommand
         {
@@ -106,6 +133,19 @@ namespace FinanceApp.ViewModel
                     }));
             }
         }
+        private RelayCommand allTransactionsPageCommand;
+        public RelayCommand AllTransactionsPageCommand
+        {
+            get
+            {
+                return allTransactionsPageCommand ??
+                    (allTransactionsPageCommand = new RelayCommand(obj =>
+                    {
+                        AllTransactionsPage();
+                    }));
+            }
+        }
+
 
         public void LoadPages()
         {
@@ -118,29 +158,15 @@ namespace FinanceApp.ViewModel
             depositCalculatorViewModel = new DepositCalculatorViewModel();
             depositCalculatorPage = new DepositCalculatorPage() { DataContext = depositCalculatorViewModel };
 
-            // Инициализируем баланс
+            // Initialize the balance
             balancePageViewModel = new BalancePageViewModel();
             balancePage = new BalancePage() { DataContext = balancePageViewModel };
-        }
-        public void OpenAllTransactionsPage()
-        {
-            
-            AllTransactionsViewModel allTransactionsViewModel = new AllTransactionsViewModel();
-            Page allTransactionsPage = new AllTransactionsPage() { DataContext = allTransactionsViewModel };
-            CurrentPage = allTransactionsPage;
-        }
+           
 
-        private RelayCommand allTransactionsPageCommand;
-        public RelayCommand AllTransactionsPageCommand
-        {
-            get
-            {
-                return allTransactionsPageCommand ??
-                    (allTransactionsPageCommand = new RelayCommand(obj =>
-                    {
-                        OpenAllTransactionsPage();
-                    }));
-            }
+            reportPageViewModel = new ReportPageViewModel();
+            reportPage = new ReportPage() { DataContext = reportPageViewModel };
+            allTransactionsPageViewModel = new AllTransactionsPageViewModel();
+            allTransactionsPage = new AllTransactionsPage() { DataContext = allTransactionsPageViewModel };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

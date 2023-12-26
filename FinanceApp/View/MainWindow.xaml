@@ -6,26 +6,63 @@
         xmlns:materialDesign="http:/materialdesignxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:FinanceApp"
         mc:Ignorable="d"
-        Title="Financial and investment portfolio" Height="450" Width="800">
+        Title="Financial and investment portfolio" Height="450" Width="900" FontFamily="Cooper Black">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" MinWidth="151"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <StackPanel Orientation="Vertical" >
-                <Button Content="Income" Margin="5" Command="{Binding IncomePageCommand}"/>
-                <Button Content="Expense" Margin="5" Command="{Binding ExpensePageCommand}"/>
-                <Button Content="Balance" Margin="5" Command="{Binding BalancePageCommand}" />
-                <Button Content="Deposit Calculator" Margin="5" Command="{Binding DepositCalculatorPageCommand}"/>
-                <Button Content="All transactions" Margin="5"  Command="{Binding AllTransactionsPageCommand}" />
-                <Button Content="Converter" Margin="5"/>
-                <Button Content="Report" Margin="5"/>
+            <StackPanel Orientation="Vertical" Width="200" >
+                <StackPanel.Background>
+                    <ImageBrush ImageSource="/Image/фон111.jpg" Stretch="UniformToFill" TileMode="None"/>
+                </StackPanel.Background>
+                <Button Height="40" Margin="5" Command="{Binding IncomePageCommand}"  FontFamily="Cooper Black" HorizontalContentAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="C:\Users\riink\source\repos\FinanceApp\FinanceApp\Image\iincome.png" Width="20" Height="20" Margin="0 0 5 0" />
+                        <TextBlock Text="Income" FontFamily="Cooper Black" FontSize="14" FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
+                <Button Height="40"  Margin="5" Command="{Binding ExpensePageCommand}" FontFamily="Cooper Black" HorizontalContentAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="C:\Users\riink\source\repos\FinanceApp\FinanceApp\Image\expense.png" Width="20" Height="20" Margin="0 0 5 0" />
+                        <TextBlock Text="Expense" FontFamily="Cooper Black" FontSize="14" FontWeight="Bold" />
+                    </StackPanel>
+                </Button>
+                <Button Height="40" Margin="5" Command="{Binding BalancePageCommand}" FontFamily="Cooper Black" HorizontalContentAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="C:\Users\riink\source\repos\FinanceApp\FinanceApp\Image\icons8-деньги-100.png" Width="20" Height="20" Margin="0 0 5 0" />
+                        <TextBlock Text="Balance" FontFamily="Cooper Black" FontSize="14" FontWeight="Bold" />
+                    </StackPanel>
+                </Button>
+
+                <Button Margin="5"  Command="{Binding DepositCalculatorPageCommand}" Height="40" HorizontalContentAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="C:\Users\riink\source\repos\FinanceApp\FinanceApp\Image\accounts.png" Width="20" Height="20" Margin="0 0 5 0" />
+                        <TextBlock Text="Deposit Calculator" FontFamily="Cooper Black" FontSize="14" FontWeight="Bold" />
+                    </StackPanel>
+                </Button>
+                <Button Margin="5" Height="40" Command="{Binding AllTransactionsPageCommand}" FontFamily="Cooper Black" FontWeight="Normal" HorizontalContentAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="C:\Users\riink\source\repos\FinanceApp\FinanceApp\Image\img.icons8.png" Width="20" Height="20" Margin="0 0 5 0" />
+                        <TextBlock Text="All Transactions" FontFamily="Cooper Black" FontSize="14" FontWeight="Bold" />
+                    </StackPanel>
+                </Button>
+                <Button Height="40" Margin="5" Command="{Binding ReportPageCommand}" Cursor="Hand" FontFamily="Cooper Black" FontSize="14" HorizontalContentAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="C:\Users\riink\source\repos\FinanceApp\FinanceApp\Image\report (2).png" Width="20" Height="20" Margin="0 0 5 0" />
+                        <TextBlock Text="Report" FontFamily="Cooper Black" FontSize="14" FontWeight="Bold" />
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </Grid>
         <Grid Grid.Column="1">
-            <Frame VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Beige"
-                     Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
+            <Frame VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                     Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden">
+                <Frame.Background>
+                    <ImageBrush ImageSource="/Image/фон1.jpg" Stretch="Fill"/>
+                </Frame.Background>
+            </Frame>
         </Grid>
     </Grid>
 </Window>

@@ -37,6 +37,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon-app.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.4.3.0\lib\net462\ControlzEx.dll</HintPath>
@@ -46,6 +49,12 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=51482d6f650b2b3f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.2.0.0\lib\net47\MahApps.Metro.dll</HintPath>
@@ -66,6 +75,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
@@ -86,6 +96,37 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Migrations\202312081659124_Initial1.cs" />
+    <Compile Include="Migrations\202312081659124_Initial1.designer.cs">
+      <DependentUpon>202312081659124_Initial1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312091345219_add.cs" />
+    <Compile Include="Migrations\202312091345219_add.designer.cs">
+      <DependentUpon>202312091345219_add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312091915458_aa.cs" />
+    <Compile Include="Migrations\202312091915458_aa.designer.cs">
+      <DependentUpon>202312091915458_aa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312101116321_sss.cs" />
+    <Compile Include="Migrations\202312101116321_sss.designer.cs">
+      <DependentUpon>202312101116321_sss.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312211504111_Update.cs" />
+    <Compile Include="Migrations\202312211504111_Update.designer.cs">
+      <DependentUpon>202312211504111_Update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312211531386_bd.cs" />
+    <Compile Include="Migrations\202312211531386_bd.designer.cs">
+      <DependentUpon>202312211531386_bd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ReportItem.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="ViewModel\AllTransactionsPageViewModel.cs" />
+    <Compile Include="ViewModel\ReportPageViewModel.cs" />
+    <Compile Include="View\ReportPage.xaml.cs">
+      <DependentUpon>ReportPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\AllTransactionsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -126,20 +167,23 @@
     <Compile Include="Migrations\202312021643030_UpdateModel.designer.cs">
       <DependentUpon>202312021643030_UpdateModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202312022237157_YourMigrationName.cs" />
-    <Compile Include="Migrations\202312022237157_YourMigrationName.designer.cs">
-      <DependentUpon>202312022237157_YourMigrationName.cs</DependentUpon>
+    <Compile Include="Migrations\202312081601576_qwe.cs" />
+    <Compile Include="Migrations\202312081601576_qwe.designer.cs">
+      <DependentUpon>202312081601576_qwe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312081605307_zx.cs" />
+    <Compile Include="Migrations\202312081605307_zx.designer.cs">
+      <DependentUpon>202312081605307_zx.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BalanceItem.cs" />
+    <Compile Include="Model\Transaction.cs" />
     <Compile Include="Model\DataBaseContext.cs" />
     <Compile Include="Model\DepositCalculatorModel.cs" />
     <Compile Include="Model\Expense.cs" />
     <Compile Include="Model\Income.cs" />
     <Compile Include="Model\MonthlyCalculation.cs" />
     <Compile Include="Model\RelayCommand.cs" />
-    <Compile Include="Model\Transactions.cs" />
-    <Compile Include="ViewModel\AllTransactionsPageViewModel.cs" />
     <Compile Include="ViewModel\BalancePageViewModel.cs" />
     <Compile Include="ViewModel\DepositCalculatorViewModel.cs" />
     <Compile Include="ViewModel\ExpensePageViewModel.cs" />
@@ -164,6 +208,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ReportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -188,13 +236,39 @@
     <EmbeddedResource Include="Migrations\202312021643030_UpdateModel.resx">
       <DependentUpon>202312021643030_UpdateModel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202312022237157_YourMigrationName.resx">
-      <DependentUpon>202312022237157_YourMigrationName.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202312081601576_qwe.resx">
+      <DependentUpon>202312081601576_qwe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312081605307_zx.resx">
+      <DependentUpon>202312081605307_zx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312081659124_Initial1.resx">
+      <DependentUpon>202312081659124_Initial1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312091345219_add.resx">
+      <DependentUpon>202312091345219_add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312091915458_aa.resx">
+      <DependentUpon>202312091915458_aa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312101116321_sss.resx">
+      <DependentUpon>202312101116321_sss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312211504111_Update.resx">
+      <DependentUpon>202312211504111_Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312211531386_bd.resx">
+      <DependentUpon>202312211531386_bd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagram3.cd" />
+    <None Include="ClassDiagram4.cd" />
+    <None Include="ClassDiagram5.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -204,7 +278,51 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Image\accounts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\report.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\income.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\iincome.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\expense.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\report %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\img.icons8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\icons8-деньги-100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\фон.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\фон1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\фон11.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\фон111.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\icon app.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon app.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon-app.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -7,38 +7,43 @@
       xmlns:local="clr-namespace:FinanceApp.View"
       xmlns:materialDesign1="http://materialdesigninxaml.net/winfx/xaml/themes" 
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450"
       Title="IncomePage">
 
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Background="Gray">
+        <Grid Grid.Column="0">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Image/фон1.jpg"/>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="IncomePage" HorizontalAlignment="Center"/>
 
             <DataGrid Margin="5" Grid.Row="1" ItemsSource="{Binding Incomes}" AutoGenerateColumns="False"  
-                      SelectedItem="{Binding SelectedIncome, Mode=TwoWay}" SelectionUnit="FullRow">
+                      SelectedItem="{Binding SelectedIncome, Mode=TwoWay}" SelectionUnit="FullRow" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="Amount" Width="auto" Binding="{Binding Amount}"/>
                     <DataGridTextColumn Header="Currency" Width="auto" Binding="{Binding Currency}"/>
                     <DataGridTextColumn Header="Date" Width="auto" Binding="{Binding Date}"/>
                     <DataGridTextColumn Header="Category" Width="auto" Binding="{Binding Category}"/>
-                    <!-- Добавьте необходимые колонки для вашего приложения -->
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
 
         <Grid Grid.Column="1">
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-              
+            <Grid.Background>
+                <ImageBrush ImageSource="/Image/фон11.jpg"/>
+            </Grid.Background>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+
                 <TextBlock x:Name="Watermark" Text="Amount" Foreground="Gray" Visibility="Visible"/>
                 <TextBox x:Name="Amount" Width="200"  Margin="5" Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock x:Name="Watermark2" Text="Currency" Foreground="Gray" Visibility="Visible"/>
@@ -48,11 +53,11 @@
                 <TextBlock x:Name="Watermark4" Text="Category" Foreground="Gray" Visibility="Visible"/>
                 <ComboBox x:Name="CategoryComboBox" Margin="5" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <Button Content="Save" Margin="10" Command="{Binding SaveCommand}"/>
-                <Button Content="Delete" Margin="10" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedIncome}"/>
-                <Button Content="Delete All Incomes" Margin="10" Command="{Binding DeleteAllIncomesCommand}"/>
+                <Button Content="Save" Margin="10" Command="{Binding SaveCommand}" FontFamily="Cooper Black"/>
+                <Button Content="Delete" Margin="10" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedIncome}" FontFamily="Cooper Black"/>
+                <Button Content="Delete All Incomes" Margin="10" Command="{Binding DeleteAllIncomesCommand}" FontFamily="Cooper Black"/>
+               
             </StackPanel>
         </Grid>
     </Grid>
 </Page>
-

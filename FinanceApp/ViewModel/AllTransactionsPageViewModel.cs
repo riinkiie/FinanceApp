@@ -1,160 +1,149 @@
 ﻿using FinanceApp.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Timers;
+using System.Windows.Input;
 
 namespace FinanceApp.ViewModel
 {
-    public class AllTransactionsViewModel : INotifyPropertyChanged
+    public class AllTransactionsPageViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Transaction> transactions;
-        private DateTime filterStartDate;
-        private DateTime filterEndDate;
-        private string selectedTransactionType;
+        private DataBaseContext dbContext;
 
-        public ObservableCollection<Transaction> Transactions
+        private ObservableCollection<Transaction> transactionItems;
+        public ObservableCollection<Transaction> TransactionItems
         {
-            get { return transactions; }
+            get { return transactionItems; }
             set
             {
-                transactions = value;
-                OnPropertyChanged(nameof(Transactions));
+                transactionItems = value;
+                OnPropertyChanged(nameof(TransactionItems));
             }
         }
 
-        public DateTime FilterStartDate
+        private DateTime startDate;
+        public DateTime StartDate
         {
-            get { return filterStartDate; }
+            get { return startDate; }
             set
             {
-                filterStartDate = value;
-                OnPropertyChanged(nameof(FilterStartDate));
-                FilterTransactions();
+                startDate = value;
+                OnPropertyChanged(nameof(StartDate));
             }
         }
 
-        public DateTime FilterEndDate
+        private DateTime endDate;
+        public DateTime EndDate
         {
-            get { return filterEndDate; }
+            get { return endDate; }
             set
             {
-                filterEndDate = value;
-                OnPropertyChanged(nameof(FilterEndDate));
-                FilterTransactions();
+                endDate = value;
+                OnPropertyChanged(nameof(EndDate));
             }
         }
 
-        public ObservableCollection<string> TransactionTypes { get; set; }
+        private int selectedTimeRange;
+        public int SelectedTimeRange
+        {
+            get { return selectedTimeRange; }
+            set
+            {
+                selectedTimeRange = value;
+                OnPropertyChanged(nameof(SelectedTimeRange));
+                UpdateDateRange();
+            }
+        }
 
+        private string selectedTransactionType = "All";
         public string SelectedTransactionType
         {
             get { return selectedTransactionType; }
             set
             {
-                selectedTransactionType = value;
-                OnPropertyChanged(nameof(SelectedTransactionType));
-                FilterTransactions();
-            }
-        }
-
-        public AllTransactionsViewModel()
-        {
-            // Инициализация коллекции транзакций и других свойств
-            Transactions = new ObservableCollection<Transaction>();
-            TransactionTypes = new ObservableCollection<string> { "All", "Income", "Expense" };
-
-            // Подгрузка всех транзакций
-            LoadAllTransactions();
-        }
-
-        private void LoadAllTransactions()
-        {
-            using (var dbContext = new DataBaseContext())
-            {
-                var allTransactions = dbContext.Income
-                    .Select(i => new Transaction
-                    {
-                        Id = i.Id,
-                        Amount = i.Amount,
-                        Currency = i.Currency,
-                        Date = i.Date,
-                        Category = i.Category,
-                        TransactionType = "Income"
-                    })
-                    .Union(dbContext.Expense
-                        .Select(e => new Transaction
-                        {
-                            Id = e.Id,
-                            Amount = e.Amount,
-                            Currency = e.Currency,
-                            Date = e.Data,
-                            Category = e.Category,
-                            TransactionType = "Expense"
-                        }))
-                    .OrderByDescending(t => t.Date)
-                    .ToList();
-
-                Transactions = new ObservableCollection<Transaction>(allTransactions);
-            }
-        }
-
-        private void FilterTransactions()
-        {
-            // Очистим коллекцию перед загрузкой новых данных
-            Transactions.Clear();
-
-            // Фильтрация транзакций в соответствии с выбранными параметрами
-            using (var dbContext = new DataBaseContext())
-            {
-                var filteredTransactions = dbContext.Income
-                    .Where(t => t.Date >= FilterStartDate && t.Date <= FilterEndDate)
-                    .Select(i => new Transaction
-                    {
-                        Id = i.Id,
-                        Amount = i.Amount,
-                        Currency = i.Currency,
-                        Date = i.Date,
-                        Category = i.Category,
-                        TransactionType = "Income"
-                    })
-                    .Union(dbContext.Expense
-                        .Where(t => t.Data >= FilterStartDate && t.Data <= FilterEndDate)
-                        .Select(e => new Transaction
-                        {
-                            Id = e.Id,
-                            Amount = e.Amount,
-                            Currency = e.Currency,
-                            Date = e.Data,
-                            Category = e.Category,
-                            TransactionType = "Expense"
-                        }))
-                    .OrderByDescending(t => t.Date)
-                    .ToList();
-
-                if (SelectedTransactionType != "All")
+                // Проверяем, изменился ли фактически тип транзакции
+                if (selectedTransactionType != value)
                 {
-                    // Фильтрация по типу транзакции
-                    filteredTransactions = filteredTransactions
-                        .Where(t => t.TransactionType == SelectedTransactionType)
-                        .ToList();
-                }
-
-                // Добавим отфильтрованные транзакции в коллекцию
-                foreach (var transaction in filteredTransactions)
-                {
-                    Transactions.Add(transaction);
+                    selectedTransactionType = value;
+                    OnPropertyChanged(nameof(SelectedTransactionType));
                 }
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public ICommand ApplyDateRangeCommand => new RelayCommand(_ => UpdateTransactionItems());
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private Timer updateTimer;
+
+        public AllTransactionsPageViewModel()
+        {
+            dbContext = new DataBaseContext();
+            SetDateRange(-1); // Установка начальных значений дат для последнего месяца
+
+            // Подписываемся на события добавления расходов и доходов
+            Expense.ExpenseAdded += (sender, expense) => UpdateTransactionItems();
+            Income.IncomeAdded += (sender, income) => UpdateTransactionItems();
+
+            // Инициализация таймера с интервалом в 500 миллисекунд (подстройте по необходимости)
+            updateTimer = new Timer(500);
+            updateTimer.Elapsed += (sender, e) =>
+            {
+                // Останавливаем таймер
+                updateTimer.Stop();
+
+                // Обновляем элементы транзакций
+                UpdateTransactionItems();
+            };
+        }
+
+        private void UpdateDateRange()
+        {
+            SetDateRange(selectedTimeRange);
+        }
+
+        private void SetDateRange(int months)
+        {
+            StartDate = DateTime.Now.AddMonths(months).Date;
+            EndDate = DateTime.Now.Date;
+        }
+
+        private void UpdateTransactionItems()
+        {
+            // Получение данных из таблиц Income и Expense
+            var incomes = dbContext.Income.Where(i => i.Date >= StartDate && i.Date <= EndDate).ToList();
+            var expenses = dbContext.Expense.Where(e => e.Date >= StartDate && e.Date <= EndDate).ToList();
+
+            // Преобразование доходов и расходов в список транзакций
+            var incomeTransactions = incomes.Select(i => new Transaction { Id = i.Id, Amount = i.Amount, Currency = i.Currency, Date = i.Date, Category = i.Category }).ToList();
+            var expenseTransactions = expenses.Select(e => new Transaction { Id = e.Id, Amount = e.Amount, Currency = e.Currency, Date = e.Date, Category = e.Category }).ToList();
+
+            // Обработка фильтрации по типу транзакции
+            switch (SelectedTransactionType)
+            {
+                case "All":
+                    // Объединение всех данных
+                    var allTransactions = incomeTransactions.Concat(expenseTransactions);
+                    TransactionItems = new ObservableCollection<Transaction>(allTransactions);
+                    break;
+                case "Income":
+                    // Показывать только доходы
+                    TransactionItems = new ObservableCollection<Transaction>(incomeTransactions);
+                    break;
+                case "Expense":
+                    // Показывать только расходы
+                    TransactionItems = new ObservableCollection<Transaction>(expenseTransactions);
+                    break;
+                default:
+                    break;
+            }
+        }
+        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

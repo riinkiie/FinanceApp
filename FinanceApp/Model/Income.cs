@@ -20,7 +20,7 @@ namespace FinanceApp.Model
             set { amount = value; OnPropertyChanged("Amount"); }
         }
 
-        private DateTime date; // Добавленное свойство Date
+        private DateTime date; 
         public DateTime Date
         {
             get { return date; }
@@ -33,14 +33,20 @@ namespace FinanceApp.Model
             get { return category; }
             set { category = value; OnPropertyChanged(); }
         }
-
+        private int userId;
+        public int UserId
+        {
+            get { return userId; }
+            set { userId = value; OnPropertyChanged("IdUser"); }
+        }
         private string currency;
         public string Currency
         {
             get { return currency; }
             set { currency = value; OnPropertyChanged(); }
         }
- 
+
+        public string TransactionType { get; } = "Income";
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -56,5 +62,6 @@ namespace FinanceApp.Model
         {
             IncomeAdded?.Invoke(null, income);
         }
+     
     }
 }

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FinanceApp.Model.BalanceItem">
+    <Position X="9.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACIAAAAAAAAgAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\BalanceItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinanceApp.Model.DataBaseContext">
+    <Position X="3.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\DataBaseContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinanceApp.Model.DepositCalculatorModel">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAACAAAAAABAAAAIAAAIAAAiAEAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Model\DepositCalculatorModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinanceApp.Model.Expense" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAIAAIAACAiAAAgAEBAAIIAQEACgA=</HashCode>
+      <FileName>Model\Expense.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FinanceApp.Model.Income" BaseTypeListCollapsed="true">
+    <Position X="5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACACAEAAAAAAAAIAAIAACAiAAAgAEBAAAIAQAACgA=</HashCode>
+      <FileName>Model\Income.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FinanceApp.Model.MonthlyCalculation">
+    <Position X="7" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABACAAAAAAAAAAAAAAAAAAACAAAAAAEAAAAAAAIABA=</HashCode>
+      <FileName>Model\MonthlyCalculation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinanceApp.Model.RelayCommand" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAEAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\RelayCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FinanceApp.Model.ReportItem">
+    <Position X="2.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAIAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Model\ReportItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinanceApp.Model.Transaction">
+    <Position X="5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAACACAAAAACBAAAAAAAACAA=</HashCode>
+      <FileName>Model\Transaction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

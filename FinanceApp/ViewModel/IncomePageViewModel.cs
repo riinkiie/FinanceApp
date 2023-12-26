@@ -93,8 +93,8 @@ namespace FinanceApp.ViewModel
             this.mainWindowViewModel = mainWindowViewModel;
 
             Incomes = new ObservableCollection<Income>();
-            Currencies = new ObservableCollection<string> { "USD", "EUR", "BLR" };
-            Categories = new ObservableCollection<string> { "Salary", "Investment", "Gift" };
+            Currencies = new ObservableCollection<string> { "USD", "EUR", "BLR", "RUB" };
+            Categories = new ObservableCollection<string> { "Salary", "Investment", "Gift", "Freelancing" };
 
             LoadIncomes();
 
@@ -120,10 +120,9 @@ namespace FinanceApp.ViewModel
         {
             Income newIncome = new Income
             {
-                
                 Amount = decimal.Parse(Amount),
                 Currency = SelectedCurrency,
-                Date = DateTime.Now,
+                Date = SelectedDate, // Используем значение SelectedDate
                 Category = SelectedCategory
             };
 
@@ -131,14 +130,14 @@ namespace FinanceApp.ViewModel
             dbContext.Income.Add(newIncome);
             dbContext.SaveChanges();
             Income.OnIncomeAdded(newIncome);
+
             // Очистка полей ввода после сохранения
             Amount = string.Empty;
             SelectedCurrency = null;
             SelectedDate = DateTime.Today;
             SelectedCategory = null;
-
-
         }
+
 
         private void DeleteAllIncomes(object parameter)
         {
